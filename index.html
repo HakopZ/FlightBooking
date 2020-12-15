@@ -12,10 +12,66 @@
         <option value="ReturnFlight">Return Flight</option>
     </select>
     <br>
-    <input type="number" value="0.0.0">
+    <input type="text" value="0.0.0" id="Flight">
     <br>
-    <input type="number" value="0.0.0">
+    <input type="text" value="0.0.0" id=ReturnFlight">
     <br>
-    <button type="button">Book</button>
+    <button type="button" onclick="Clicked();">Book</button>
 </body>
+<script>
+    function TryParseInt(str,defaultValue) {
+        var retValue = defaultValue;
+        if(str !== null) {
+            if(str.length > 0) {
+                if (!isNaN(str)) {
+                    retValue = parseInt(str);
+                }
+            }
+        }
+        return retValue;
+    }
+    function Clicked()
+    {
+        let option = document.getElementById("SelectID");
+        let flight = document.getElementById("Flight");
+        let returnFlight = document.getElementById("ReturnFlight");
+        if(option.value = "OneWay")
+        {
+            let fl = new Date();
+            let ar = ParseToDate(flight.value);
+            if(ar.length != 3)
+            {
+                alert("Retry");
+                return;
+            }
+
+            fl.setFullYear(ar[2], ar[1] - 1, ar[0]);
+            if(!fl.getFullYear())
+            {
+                alert("Retry");
+            }
+            else {
+                alert("Booked");
+            }
+            flight.value = "0.0.0";
+        }
+    }
+    function ParseToDate(str)
+    {
+        let ar = str.split('.');
+        let dateAr = [];
+        for (let x = 0; x < ar.length;x++)
+        {
+
+            let temp = TryParseInt(ar[x], 0);
+            if(temp === 0)
+            {
+                ar = [];
+                return ar;
+            }
+            dateAr.push(temp);
+        }
+        return dateAr;
+    }
+</script>
 </html>
