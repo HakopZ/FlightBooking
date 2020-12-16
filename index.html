@@ -20,7 +20,7 @@
 </body>
 <script>
     function TryParseInt(str,defaultValue) {
-        var retValue = defaultValue;
+        let retValue = defaultValue;
         if(str !== null) {
             if(str.length > 0) {
                 if (!isNaN(str)) {
@@ -42,6 +42,7 @@
             if(ar.length != 3)
             {
                 alert("Retry");
+                flight.value = "0.0.0";
                 return;
             }
 
@@ -54,6 +55,30 @@
                 alert("Booked");
             }
             flight.value = "0.0.0";
+        }
+        else if(option.value ="ReturnFlight")
+        {
+            let fl = new Date();
+            let frl = new Date();
+            let fAR = ParseToDate(flight.value);
+            let frAR = ParseToDate(returnFlight.value);
+            if(fAR.length != 3 || frAR.length != 3)
+            {
+                alert("Retry");
+                flight.value = "0.0.0";
+                returnFlight.value = "0.0.0";
+                return;
+            }
+            fl.setFullYear(fAR[2], fAR[1] - 1, fAR[0]);
+            frl.setFullYear(frAR[2], frAR[1] - 1, frAR[0]);
+            if(fl > frl)
+            {
+                alert("Retry");
+                flight.value = "0.0.0";
+                returnFlight.value = "0.0.0";
+                return;
+            }
+
         }
     }
     function ParseToDate(str)
